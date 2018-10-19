@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 #include "matrice.h"
 
+///<----Constructori si Destructori---->
 Matrice::Matrice(int linii = 1, int coloane = 1)
 {
     n_linii = linii;
@@ -11,24 +12,25 @@ Matrice::Matrice(int linii = 1, int coloane = 1)
     for(contorL = 1; contorL <= n_linii; contorL++)
         for(int contorC = 1; contorC <= n_coloane; element[contorL][contorC] = (contorC++ == contorL) ? 1 : 0);
 
-    /*for(contorL = 1; contorL <= n_linii; contorL++, std::cout << '\n')
-        for(int contorC = 1; contorC <= n_coloane; std::cout << element[contorL][contorC++] << " ");*/
-
 }
 
-void Matrice::SetLinii(int linii)
+Matrice::~Matrice()
 {
+    for(int contorL = 1; contorL <= n_linii; contorL++)
+        delete[] element[contorL];
+    delete[] element;
+}
+///<----------------------------------->
+///<----Setters si Getters---->
+void Matrice::SetLinii(int linii){
     n_linii = linii;
 }
-void Matrice::SetColoane(int coloane)
-{
+void Matrice::SetColoane(int coloane){
     n_coloane = coloane;
 }
-void Matrice::SetElem(int lin, int col, int elem)
-{
+void Matrice::SetElem(int lin, int col, int elem){
     element[lin][col] = elem;
 }
-
 int Matrice::GetLinii(){
     return n_linii;
 }
@@ -38,14 +40,10 @@ int Matrice::GetColoane(){
 double Matrice::GetElem(int linie, int coloana){
     return element[linie][coloana];
 }
+///<-------------------------->
 
-Matrice::~Matrice()
-{
-    for(int contorL = 1; contorL <= n_linii; contorL++)
-        delete[] element[contorL];
-    delete[] element;
-}
-
+///<---Operatori---->
+///<----Unari---->
 Matrice operator+(Matrice & mArg)
 {
     return mArg;
@@ -60,16 +58,35 @@ Matrice operator-(Matrice & mArg)
 
     return argNou;
 }
+///<------------->
 
+///<----Binari---->
 
-void writeStats(int arg1, int arg2)
-{
-    std::cout << arg1 << " " << arg2 << '\n';
+Matrice operator-(Matrice & mArg1, Matrice &mArg2){
+    Matrice mArg3(mArg1.GetLinii(), mArg1.GetColoane());
+    for(int contorL = 1; contorL <= mArg3.GetLinii(); contorL++)
+        for(int contorC = 1; contorC <= mArg3.GetColoane(); contorC++)
+            mArg3.element[contorL][contorC] = mArg1.GetElem(contorL, contorC) - mArg2.GetElem(contorL, contorC);
+
+    return mArg3;
 }
+
+Matrice operator+(Matrice & mArg1, Matrice &mArg2){
+    Matrice mArg3(mArg1.GetLinii(), mArg1.GetColoane());
+    for(int contorL = 1; contorL <= mArg3.GetLinii(); contorL++)
+        for(int contorC = 1; contorC <= mArg3.GetColoane(); contorC++)
+            mArg3.element[contorL][contorC] = mArg1.GetElem(contorL, contorC) + mArg2.GetElem(contorL, contorC);
+
+    return mArg3;
+}
+
+///
+
+///<----Operatori Citire + Scriere---->
 
 std::istream & operator>>(std::istream & stream, Matrice & mArg)
 {
-    ///writeStats(mArg.n_linii, mArg.n_coloane);
+
     for(int contorL = 1; contorL <= mArg.n_linii; contorL++)
         for(int contorC = 1; contorC <= mArg.n_coloane; stream >> mArg.element[contorL][contorC++]);
 
@@ -78,7 +95,6 @@ std::istream & operator>>(std::istream & stream, Matrice & mArg)
 
 std::ostream & operator<<(std::ostream& stream, Matrice & mArg)
 {
-    ///stream << mArg.n_linii << " " << mArg.n_coloane << "\n";
 
     for(int contorL = 1; contorL <= mArg.n_linii; contorL++, stream << "\n")
         for(int contorC = 1; contorC <= mArg.n_coloane; stream << mArg.element[contorL][contorC++] << " ");
@@ -87,28 +103,17 @@ std::ostream & operator<<(std::ostream& stream, Matrice & mArg)
 
 }
 
+///<---------------------------------->
 
-/*Matrice operator+(Matrice & mArg1, Matrice & mArg2){
-
-
-}*/
-
-
-
-/*double Matrice::GetElem(int linie, int coloana){
-    return Matrice.element[linie][coloana];
-}*/
 
 int main()
 {
-    Matrice M1(4, 4), M5(4, 4);
-    std::cin >> M1;
+    Matrice M1(4, 4), M5(4, 4), M2(4, 4);
+    std::cin >> M1 >> M5;
+    M2 = M1 - M5;
+    std::cout << M2;
+    M1 = M5 + M2;
+    std::cout << M1;
 
-
-
-
-    /*for(int i = 1; i <= 4; i++, std::cout << '\n')
-        for(int j = 1; j <= 4; j++)
-            std::cout << M1.GetElem(i, j) << " ";*/
     return 0;
 }
