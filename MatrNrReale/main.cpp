@@ -199,7 +199,7 @@ Matrice operator^(Matrice & mArg1, double numar){
     return mArg1;
 }
 
-///
+///<--------------------------->
 
 ///<----Operatori atribuire---->
 Matrice Matrice::operator+=(Matrice & mArg){
@@ -241,7 +241,41 @@ Matrice Matrice::operator*=(Matrice & mArg){
     return mArg3;
 }
 
-///
+///<-------------------------->
+
+///<----Operatori conditionali---->
+bool operator==(Matrice & mArg1, Matrice & mArg2){
+    if((mArg1.n_linii != mArg2.n_linii) ||(mArg1.n_coloane != mArg2.n_coloane))
+        throw "Numar linii-coloane inegal";
+
+    for(int contorL = 1; contorL <= mArg1.n_linii; contorL++)
+        for(int contorC = 1; contorC <= mArg1.n_coloane; contorC++)
+            if(mArg1.element[contorL][contorC] != mArg2.element[contorL][contorC])
+                return 0;
+
+    return 1;
+}
+
+bool operator!=(Matrice & mArg1, Matrice & mArg2){
+    if((mArg1.n_linii != mArg2.n_linii) ||(mArg1.n_coloane != mArg2.n_coloane))
+        throw "Numar linii-coloane inegal";
+
+    for(int contorL = 1; contorL <= mArg1.n_linii; contorL++)
+        for(int contorC = 1; contorC <= mArg1.n_coloane; contorC++)
+            if(mArg1.element[contorL][contorC] == mArg2.element[contorL][contorC])
+                return 0;
+
+    return 1;
+}
+///<------------------------------>
+
+///<----Operator accesare---->
+
+Matrice Matrice::operator[](Matrice & mArg){
+
+}
+
+///<------------------------->
 
 ///<----Operatori Citire + Scriere---->
 
@@ -272,10 +306,13 @@ std::ostream & operator<<(std::ostream& stream, Matrice & mArg)
 int main()
 {
     Matrice M1(3, 3), M5(3, 3), M2(3, 3);
-    std::cin >> M1 >> M2;
+    ///std::cin >> M1;
+    bool rez = M1 != M5;
+    std::cout << rez;
+    /*std::cin >> M1 >> M2;
     M2 += M1;
     M2 *= 3;
-    std::cout << M2;
+    std::cout << M2;*/
 
     return 0;
 }

@@ -26,6 +26,9 @@ public:
     friend Matrice operator/(Matrice &, double);
     friend Matrice operator^(Matrice &, double);
     friend Matrice operator/(double, Matrice &);
+    friend bool operator==(Matrice &, Matrice &);
+    friend bool operator!=(Matrice &, Matrice &);
+    Matrice operator[](Matrice &);
     friend std::istream& operator>>(std::istream &, Matrice &);
     friend std::ostream& operator<<(std::ostream &, Matrice &);
 
