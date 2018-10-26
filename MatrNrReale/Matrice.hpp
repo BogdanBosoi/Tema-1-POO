@@ -4,9 +4,10 @@ class Matrice{
 
 public:
 
-    ///<---- Constructor si Destructor ---->
+    ///<---- Constructori si Destructor ---->
 
     Matrice(int, int);
+    Matrice(Matrice &);
     ~Matrice();
 
     ///<----------------------------------->
@@ -15,17 +16,16 @@ public:
 
     int GetLinii() const;
     int GetColoane() const;
-    double GetElem(const int, const int);
     void SetLinii(const int);
     void SetColoane(const int);
-    void SetElem(const int, const int, const int);
+    void SetElem(const int, const int, const double);
 
     ///<---------------------------->
 
     ///<---- Operatori unari ---->
 
-    Matrice operator-() const;
-    Matrice operator+() const;
+    Matrice operator-();
+    Matrice operator+();
 
     ///<------------------------->
 
