@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
@@ -7,65 +8,65 @@ class Matrix {
 
 public:
 
-	//<---- Constructori si Destructor ---->
+	//<---- Constructors and Destructors---->
 
 	Matrix(int, int);
-	Matrix(Matrix &);
-	~Matrix();
+	Matrix(const Matrix &);
 
-	//<---- Setters si getters ---->
+	//<---- Setters and getters ---->
 
 	int GetLine() const;
 	int GetColumn() const;
-	void SetElem(const int line, const int column, const double value);
 
-	//<---- Operatori unari ---->
+	//<----Unary Operators ---->
 
 	Matrix operator-();
 	Matrix operator+();
 
-	//<---- Operatori binari ---->
+	//<---- Binary Operators ---->
 
-	friend Matrix& operator-(Matrix &, Matrix &);
-	friend Matrix& operator-(double, Matrix &);
-	friend Matrix& operator-(Matrix &, double);
-	friend Matrix& operator+(double, Matrix &);
-	friend Matrix& operator+(Matrix &, Matrix &);
-	friend Matrix& operator+(Matrix &, double);
-	friend Matrix& operator*(Matrix &, Matrix &);
-	friend Matrix& operator*(double, Matrix &);
-	friend Matrix& operator*(Matrix &, double);
-	friend Matrix& operator/(Matrix &, double);
-	friend Matrix& operator^(Matrix &, int);
-	friend Matrix& operator/(double, Matrix &);
+	friend Matrix  operator-(Matrix &, Matrix &);
+	friend Matrix  operator-(double, Matrix &);
+	friend Matrix  operator-(Matrix &, double);
+	friend Matrix  operator+(double, Matrix &);
+	friend Matrix  operator+(Matrix &, Matrix &);
+	friend Matrix  operator+(Matrix &, double);
+	friend Matrix  operator*(Matrix &, Matrix &);
+	friend Matrix  operator*(double, Matrix &);
+	friend Matrix  operator*(Matrix &, double);
+	friend Matrix  operator/(Matrix &, double);
+	friend Matrix  operator/(double, Matrix &);
+	friend Matrix  operator^(Matrix &, int);
+	
 
-	//<---- Operatori compusi de atribuire ---->
+	//<---- Compound operators ---->
 
-	Matrix operator+=(const Matrix &);
-	Matrix operator+=(double);
+	Matrix & operator+=(const Matrix);
+	Matrix & operator+=(double);
 	Matrix operator-=(const Matrix &);
 	Matrix operator-=(double);
 	Matrix operator*=(double);
-	Matrix operator*=(const Matrix &);
+	Matrix & operator*=(const Matrix &);
+	Matrix operator/=(double);
 
-	//<---- Operator de accesare ---->
+	//<---- Access Operator ---->
 
 	Matrix operator[](const int);
 
-	//<---- Operatori relationali ---->
+	//<---- Boolean Operators ---->
 
 	friend bool operator==(Matrix &, Matrix &);
 	friend bool operator!=(Matrix &, Matrix &);
 
-	//<---- Operatori Citire si Scriere ---->
+	//<---- Read and Write Operators---->
 
 	friend std::istream& operator>>(std::istream &, Matrix &);
-	friend std::ostream& operator<<(std::ostream &, Matrix &);
+	friend std::ostream& operator<<(std::ostream &, const Matrix &);
 
 private:
 	int m_lines;
 	int m_columns;
-	double **m_element;
+	std::vector<std::vector<double>> m_element;
 
 };
 
